@@ -1,0 +1,75 @@
+{% extends "auctions/layout.html "%}
+
+
+{% block body %}
+
+{% if look %}
+<h2>Congratulations, you have won bid for following products:</h2>
+
+    <ul style="list-style-type:none;">
+        {% for item in products %} 
+            <div style="border: 1px solid lightgray; margin: 50px; padding: 20px; border-radius: 10px;">
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td style="width:40px;">
+                                <img src="{{item.product.photo}}" style="width:80%;"/>
+                            </td>
+                            <td style="width: 60%;"  valign="top">
+                                <div><h5>{{ item.product.product_name }}</h5></div>
+                                <div>{{ item.product.des }}</div>
+                                <div>Bid: ${{ item.amount }}</div>
+                                <div>Listed by: {{ item.product.user }}</div>
+                                <div>Winner: {{ item.winner }}</div>
+                                <div>Added on: {{ item.product.date }}</div>
+                                 {%if user.is_authenticated %}
+                                 <hr>
+        <div><a href="{% url 'Closed_details' item.product.id %}" class="btn btn-primary" role="button">Details</a></div>
+        <a href="{% url 'close' item.product.id %}">Closed Listing Page</a>
+         {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+              {% endfor %}
+    </ul>
+
+            
+      {% else %}
+        	 <ul style="list-style-type:none;">
+        {% for item in items %} 
+            <div style="border: 1px solid lightgray; margin: 50px; padding: 20px; border-radius: 10px;">
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td style="width:40px;">
+                                <img src="{{item.product.photo}}" style="width:80%;"/>
+                            </td>
+                            <td style="width: 60%;"  valign="top">
+                                <div><h5>{{ item.product.product_name }}</h5></div>
+                                <div>{{ item.product.des }}</div>
+                                <div>Bid: ${{ item.amount }}</div>
+                                <div>Listed by: {{ item.product.user }}</div>
+                                <div>Winner: {{ item.winner }}</div>
+                                <div>Added on: {{ item.product.date }}</div>
+                                 {%if user.is_authenticated %}
+                                 <hr>
+        <div><a href="{% url 'Closed_details' item.product.id %}" class="btn btn-primary" role="button">Details</a></div>
+         {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           
+        	{% empty %}
+        <li>No product has been closed.</li>
+
+        {% endfor %}
+
+    </ul>
+    {% endif %}
+
+		
+{% endblock %}

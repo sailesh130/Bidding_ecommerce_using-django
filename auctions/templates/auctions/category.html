@@ -1,0 +1,47 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+<div class="row">
+
+<div class="col-xs-6 col-md-4">
+<div class="thumbnail">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI2PSD4ePQwki2o_sLb7BDsnyGPnywxhRXww&usqp=CAU" alt="">
+<div class="caption">
+<p>TV</p>
+<p><a href="{% url 'catdetails' 'Tv' %}" class="btn btn-primary" role="button">TV</a></p>
+</div>
+</div>
+</div>
+
+<div class="col-xs-6 col-md-4">
+<div class="thumbnail">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBKWRf61bKowN-DB0Eqs6WNFmBgMqD6pyBTQ&usqp=CAU" alt="">
+<div class="caption">
+<p>PHONE</p>
+<p><a href="{% url 'catdetails' 'Mobile' %}" class="btn btn-primary" role="button">PHONE</a></p>
+</div>
+</div>
+</div>
+
+<div class="col-xs-6 col-md-4 ">
+<div class="thumbnail">
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrv3OvbdnL-wa-JNV5g7xMImI1Q2yB7RLSOA&usqp=CAU" alt="Rob Roy Glacier near Wanaka, New Zealand" class="w-100">
+<div class="caption">
+<p>PC</p>
+<p><a href="{% url 'catdetails' 'PC' %}" class="btn btn-primary" role="button">PC</a></p>
+</div>
+</div>
+</div>
+
+<div class="col-xs-6 col-md-4">
+<div class="thumbnail">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR0Qm7nOHnLcTPNl0Bp4PP9q58HiBNBouoQg&usqp=CAU" alt="Views near Rob Roy Glacier">
+<div class="caption">
+<p>LAPTOP</p>
+<p><a href="{% url 'catdetails' 'Laptop' %}" class="btn btn-primary" role="button">LAPTOP</a></p>
+</div>
+</div>
+</div>
+
+</div>
+{% endblock %}

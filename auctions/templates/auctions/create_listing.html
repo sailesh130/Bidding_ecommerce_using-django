@@ -1,0 +1,36 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+{% if message %}
+<h2>{{message}}</h2>
+{% endif %}
+  <form action="{% url 'entry' user.pk %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control" autofocus type="text" name="product_name" placeholder="Product">
+        </div>
+        <br>
+        <div class="form-group">
+            <input class="form-control" type="number" name="price" placeholder="Price" min="1">
+        </div>
+        <br>
+        <div class="form-group">
+           <textarea class="form-control" aria-label="With textarea" placeholder="Description" name="des"></textarea>
+        </div>
+        <br>
+        <div class="form-group">
+            <input class="form-control" type="url" name="photo" placeholder="Adress of Image">
+        </div>
+        <br>
+        <select class="form-select form-select-md" aria-label=".form-select-md example" name="categorys">
+        <option selected>Select category</option>
+        <option value="Laptop">Laptop</option>
+        <option value="Tv">Tv</option>
+        <option value="Mobile">Mobile</option>
+        <option value="PC">Pc</option>
+        </select>
+         <br>
+        <input class="btn btn-primary" type="submit" value="Register">
+    </form>
+
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+<h2>Listing: {{item.product_name}}</h2>
+<section class="mb-5">
+
+  <div class="row">
+    <div class="col-md-6 mb-4 mb-md-0">
+
+      <div id="mdb-lightbox-ui"></div>
+
+      <div class="mdb-lightbox">
+
+        <div class="row product-gallery mx-1">
+
+          <div class="col-12">
+            <figure class="view overlay rounded z-depth-1 main-img">
+                <img src="{{item.photo}}"
+                  class="img-fluid z-depth-1">
+            </figure>
+
+          </div>
+         
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-6">
+
+      <h5>{{item.product_name}}</h5>
+      <p class="mb-2 text-muted text-uppercase small">{{item.categorys}}</p>
+      <p><span class="mr-1"><strong>{{item.price}}$</strong></span></p>
+      <p class="pt-1">{{item.des}}</p>
+      <h3>Details</h3>
+      <div class="table-responsive">
+        <table class="table table-sm table-borderless mb-0">
+          <tbody>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Product name</strong></th>
+              <td>{{item.product_name}}</td>
+            </tr>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Price</strong></th>
+              <td>{{item.price}}$</td>
+            </tr>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Category</strong></th>
+              <td>{{item.categorys}}</td>
+            </tr>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Listed by</strong></th>
+              <td>{{item.user}}</td>
+            </tr>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Added on</strong></th>
+              <td>{{item.date}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr>
+      {% if user != item.user %}
+<form action="{% url 'details' item.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="alert alert-primary" role="alert">
+                        {{message}}
+                    </div>
+                    <input class="form-control" autofocus type="number" name="bid" placeholder="bid amount" min="1" required="True">
+                    <input class="btn btn-primary" type="submit" value="Place bid">
+                    
+                    {% if current %}<br><div class="alert alert-success" role="alert">
+                    Your current bid = {{current}} 
+                    </div>{% endif %}
+
+                </div>
+            </form>
+     {% endif %}
+{% if user != item.user %}
+        {% if products %}
+            <p>The item is already in watchlist.</p>  
+        <a href="{% url 'delete' item.id %}"><button style="background-color:  #7AA8F6 " type="button" class="btn btn-light btn-md mr-1 mb-2">Delete from Watchlist</button></a>
+        {% else %}
+        <a href="{% url 'add' item.id %}"><button style="background-color:  #7AA8F6 " type="button" class="btn btn-light btn-md mr-1 mb-2">Add to Watchlist</button></a>
+        {% endif %}
+        {% else %}
+        <a href="{% url 'close' item.id %}"> <button style="background-color:  #7AA8F6 " type="button" class="btn btn-light btn-md mr-1 mb-2">Close Bid</button></a>
+        {% endif %}
+
+    </div>
+  </div>
+
+</section>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-8">
+            <div class="d-flex flex-column comment-section">
+                {% for comment in comments %}
+                <div class="bg-white p-2">
+                    <div class="d-flex flex-row user-info">
+                        <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">@{{comment.user}}</span><span class="date text-black-50">Shared publicly - {{comment.date}}</span></div>
+                    </div>
+                    <div class="mt-2">
+                        <p class="comment-text">{{comment.com}}</p>
+                    </div>
+                </div>
+                <hr>
+                {% empty %}
+                <p>No any comment.</p>
+                {% endfor %}
+                  <form action="{% url 'comment' item.id %}" method="post">
+                    {% csrf_token %}
+                  <div class="form-group">
+                     
+                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment" name="comment"></textarea>
+                  </div>
+                   <button type="submit" class="btn btn-primary">Post Comment</button>
+                </form>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    
+{% endblock %}

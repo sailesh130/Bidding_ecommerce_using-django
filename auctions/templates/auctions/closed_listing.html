@@ -1,0 +1,114 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+
+{% if product %}
+<h1>Details</h1>
+
+
+<section class="mb-5">
+
+  <div class="row">
+    <div class="col-md-6 mb-4 mb-md-0">
+
+      <div id="mdb-lightbox-ui"></div>
+
+      <div class="mdb-lightbox">
+
+        <div class="row product-gallery mx-1">
+
+          <div class="col-12">
+            <figure class="view overlay rounded z-depth-1 main-img">
+                <img src="{{product.product.photo}}"
+                  class="img-fluid z-depth-1">
+            </figure>
+
+          </div>
+         
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-6">
+
+      <h5>{{product.product.product_name}}</h5>
+      <p class="mb-2 text-muted text-uppercase small">{{product.product.categorys}}</p>
+      <p><span class="mr-1"><strong>{{product.amount}}$</strong></span></p>
+      <p class="pt-1">{{product.product.des}}</p>
+      <h3>Details</h3>
+      <div class="table-responsive">
+        <table class="table table-sm table-borderless mb-0">
+          <tbody>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Product name</strong></th>
+              <td>{{product.product.product_name}}</td>
+            </tr>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Price</strong></th>
+              <td>{{product.amount}}$</td>
+            </tr>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Category</strong></th>
+              <td>{{product.product.categorys}}</td>
+            </tr>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Listed by</strong></th>
+              <td>{{product.product.user.username}}</td>
+            </tr>
+            <tr>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Winner</strong></th>
+              <td>{{product.winner}}</td>
+            </tr>
+            <tr>
+              <th class="pl-0 w-25" scope="row"><strong>Added on</strong></th>
+              <td>{{product.product.date}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+{% else %}
+
+<h2>Closed bid listing</h2>
+
+
+
+<ul style="list-style-type:none;">
+        {% for item in items %} 
+            <div style="border: 1px solid lightgray; margin: 50px; padding: 20px; border-radius: 10px;">
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td style="width:40px;">
+                                <img src="{{item.product.photo}}" style="width:80%;"/>
+                            </td>
+                            <td style="width: 60%;"  valign="top">
+                                <div><h5>{{ iitem.product.product_name  }}</h5></div>
+                                <div>{{ item.product.des }}</div>
+                                <div>Bid: ${{ item.product.price }}</div>
+                                <div>Listed by: {{ item.product.user }}</div>
+                                <div>Winner: {{ item.winner }}</div>
+                                <div>Added on: {{ item.product.date }}</div>
+
+                                 {%if user.is_authenticated %}
+                                 <hr>
+        <div><a href="{% url 'Closed_details' item.product.id %}" class="btn btn-primary" role="button">Details</a></div>
+         {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        {% empty %}
+            <li>{{message}}</li>
+
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

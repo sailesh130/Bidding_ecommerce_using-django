@@ -1,0 +1,40 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+
+
+    <h2>Active Listings</h2>
+
+    <ul style="list-style-type:none;">
+        {% for item in items %} 
+            <div style="border: 1px solid lightgray; margin: 50px; padding: 20px; border-radius: 10px;">
+                <table style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td style="width:40px;">
+                                <img src="{{item.photo}}" style="width:80%;"/>
+                            </td>
+                            <td style="width: 60%;"  valign="top">
+                                <div><h5>{{ item.product_name }}</h5></div>
+                                <div>{{ item.des }}</div>
+                                <div>Bid: ${{ item.price }}</div>
+                                <div>Category: {{ item.categorys }}</div>
+                                <div>Listed by: {{ item.user }}</div>
+                                <div>Added on: {{ item.date }}</div>
+                                 {%if user.is_authenticated %}
+                                 <hr>
+        <div><a href="{% url 'details' item.id %}" class="btn btn-primary" role="button">Details</a></div>
+         {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        {% empty %}
+            <li>No active listings</li>
+
+        {% endfor %}
+    </ul>
+{% endblock %}
